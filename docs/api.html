@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - Google Drive AI Organizer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .api-container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 20px;
+        }
+        
+        .api-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 3rem;
+        }
+        
+        .api-section {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .endpoint {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .method {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-right: 1rem;
+        }
+        
+        .method.get { background: #28a745; color: white; }
+        .method.post { background: #007bff; color: white; }
+        .method.put { background: #ffc107; color: black; }
+        .method.delete { background: #dc3545; color: white; }
+        
+        .endpoint-path {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        
+        .params-table th,
+        .params-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .params-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .required {
+            color: var(--danger-color);
+            font-weight: 600;
+        }
+        
+        .optional {
+            color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fab fa-google-drive"></i>
+                <span>Drive AI Organizer</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">홈</a></li>
+                <li><a href="api.html" class="nav-link">API 문서</a></li>
+                <li><a href="https://github.com/garimto81/google-drive" class="nav-link github-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="api-container">
+        <div class="api-header">
+            <h1>API Documentation</h1>
+            <p>Google Drive AI Organizer REST API 레퍼런스</p>
+            <p>Base URL: <code>http://127.0.0.1:8888</code></p>
+        </div>
+
+        <!-- Authentication -->
+        <div class="api-section">
+            <h2><i class="fas fa-key"></i> Authentication</h2>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="endpoint-path">/auth/google</span>
+                <p>Google OAuth 2.0 로그인 시작</p>
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>302 Redirect to Google OAuth consent page</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="endpoint-path">/auth/callback</span>
+                <p>OAuth 콜백 처리 및 JWT 토큰 발급</p>
+                <h4>Query Parameters</h4>
+                <table class="params-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>code</td>
+                        <td>string</td>
+                        <td class="required">Required</td>
+                        <td>Google OAuth authorization code</td>
+                    </tr>
+                </table>
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    "user": {
+        "email": "user@example.com",
+        "name": "User Name"
+    }
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="endpoint-path">/auth/me</span>
+                <p>현재 인증된 사용자 정보 조회</p>
+                <h4>Headers</h4>
+                <div class="code-block">
+                    <pre>Authorization: Bearer {JWT_TOKEN}</pre>
+                </div>
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>{
+    "email": "user@example.com",
+    "name": "User Name",
+    "authenticated": true
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Files -->
+        <div class="api-section">
+            <h2><i class="fas fa-file"></i> Files</h2>
+            
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="endpoint-path">/files/list</span>
+                <p>Google Drive 파일 목록 조회</p>
+                <h4>Query Parameters</h4>
+                <table class="params-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>include_folders</td>
+                        <td>boolean</td>
+                        <td class="optional">Optional</td>
+                        <td>폴더 포함 여부 (default: false)</td>
+                    </tr>
+                    <tr>
+                        <td>page_size</td>
+                        <td>integer</td>
+                        <td class="optional">Optional</td>
+                        <td>페이지 크기 (default: 100, max: 1000)</td>
+                    </tr>
+                    <tr>
+                        <td>page_token</td>
+                        <td>string</td>
+                        <td class="optional">Optional</td>
+                        <td>다음 페이지 토큰</td>
+                    </tr>
+                </table>
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>{
+    "files": [
+        {
+            "id": "1234567890",
+            "name": "document.pdf",
+            "mimeType": "application/pdf",
+            "modifiedTime": "2025-08-08T10:00:00Z",
+            "size": "1048576",
+            "parents": ["folder_id"]
+        }
+    ],
+    "nextPageToken": "token123"
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="endpoint-path">/files/analyze</span>
+                <p>드라이브 상태 분석</p>
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>{
+    "analysis": {
+        "totalFiles": 460,
+        "folders": 35,
+        "unorganized": 137,
+        "fileTypes": {
+            "documents": 107,
+            "spreadsheets": 92,
+            "presentations": 70,
+            "videos": 92,
+            "images": 92
+        }
+    },
+    "recommendations": [
+        "137개의 루트 파일을 정리하세요",
+        "6개월 이상 된 217개 파일 검토 필요",
+        "23개의 중복 파일 발견"
+    ]
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="endpoint-path">/files/move</span>
+                <p>파일을 다른 폴더로 이동</p>
+                <h4>Request Body</h4>
+                <div class="code-block">
+                    <pre>{
+    "file_id": "1234567890",
+    "folder_id": "0987654321"
+}</pre>
+                </div>
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>{
+    "success": true,
+    "file": {
+        "id": "1234567890",
+        "name": "document.pdf",
+        "parents": ["0987654321"]
+    }
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method delete">DELETE</span>
+                <span class="endpoint-path">/files/{file_id}</span>
+                <p>파일 삭제</p>
+                <h4>Path Parameters</h4>
+                <table class="params-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>file_id</td>
+                        <td>string</td>
+                        <td class="required">Required</td>
+                        <td>삭제할 파일 ID</td>
+                    </tr>
+                </table>
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>{
+    "success": true,
+    "message": "File deleted successfully"
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Folders -->
+        <div class="api-section">
+            <h2><i class="fas fa-folder"></i> Folders</h2>
+            
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="endpoint-path">/folders/create</span>
+                <p>새 폴더 생성</p>
+                <h4>Request Body</h4>
+                <div class="code-block">
+                    <pre>{
+    "name": "New Folder",
+    "parent_id": "root"  // optional, default: root
+}</pre>
+                </div>
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>{
+    "folder": {
+        "id": "folder123",
+        "name": "New Folder",
+        "mimeType": "application/vnd.google-apps.folder"
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Organization -->
+        <div class="api-section">
+            <h2><i class="fas fa-magic"></i> Organization</h2>
+            
+            <div class="endpoint">
+                <span class="method post">POST</span>
+                <span class="endpoint-path">/organize/start</span>
+                <p>자동 정리 작업 시작</p>
+                <h4>Request Body</h4>
+                <div class="code-block">
+                    <pre>{
+    "auto_mode": true,
+    "confidence_threshold": 0.8,  // 0.5 - 1.0
+    "max_files": 100,
+    "create_folders": true
+}</pre>
+                </div>
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>{
+    "job_id": "job_20250808_123456",
+    "status": "started",
+    "estimated_time": 180  // seconds
+}</pre>
+                </div>
+            </div>
+
+            <div class="endpoint">
+                <span class="method get">GET</span>
+                <span class="endpoint-path">/organize/status/{job_id}</span>
+                <p>정리 작업 진행 상황 조회</p>
+                <h4>Path Parameters</h4>
+                <table class="params-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>job_id</td>
+                        <td>string</td>
+                        <td class="required">Required</td>
+                        <td>작업 ID</td>
+                    </tr>
+                </table>
+                <h4>Response</h4>
+                <div class="code-block">
+                    <pre>{
+    "job_id": "job_20250808_123456",
+    "status": "in_progress",  // started, in_progress, completed, failed
+    "progress": 65.5,
+    "processed_files": 65,
+    "total_files": 100,
+    "organized_files": 58,
+    "errors": []
+}</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error Responses -->
+        <div class="api-section">
+            <h2><i class="fas fa-exclamation-triangle"></i> Error Responses</h2>
+            <p>모든 API는 다음과 같은 형식의 에러 응답을 반환할 수 있습니다:</p>
+            <div class="code-block">
+                <pre>{
+    "error": {
+        "code": "UNAUTHORIZED",
+        "message": "Authentication required",
+        "details": "JWT token is missing or invalid"
+    }
+}</pre>
+            </div>
+            
+            <h4>Error Codes</h4>
+            <table class="params-table">
+                <tr>
+                    <th>HTTP Status</th>
+                    <th>Error Code</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>401</td>
+                    <td>UNAUTHORIZED</td>
+                    <td>인증 필요</td>
+                </tr>
+                <tr>
+                    <td>403</td>
+                    <td>FORBIDDEN</td>
+                    <td>권한 없음</td>
+                </tr>
+                <tr>
+                    <td>404</td>
+                    <td>NOT_FOUND</td>
+                    <td>리소스를 찾을 수 없음</td>
+                </tr>
+                <tr>
+                    <td>429</td>
+                    <td>RATE_LIMIT_EXCEEDED</td>
+                    <td>요청 제한 초과</td>
+                </tr>
+                <tr>
+                    <td>500</td>
+                    <td>INTERNAL_ERROR</td>
+                    <td>서버 내부 오류</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Rate Limiting -->
+        <div class="api-section">
+            <h2><i class="fas fa-tachometer-alt"></i> Rate Limiting</h2>
+            <p>API는 다음과 같은 요청 제한이 적용됩니다:</p>
+            <ul>
+                <li>인증된 요청: 분당 60회</li>
+                <li>파일 작업: 분당 30회</li>
+                <li>정리 작업: 시간당 10회</li>
+            </ul>
+            <p>응답 헤더에서 제한 정보를 확인할 수 있습니다:</p>
+            <div class="code-block">
+                <pre>X-RateLimit-Limit: 60
+X-RateLimit-Remaining: 45
+X-RateLimit-Reset: 1628444400</pre>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 GGProduction Team. MIT License.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

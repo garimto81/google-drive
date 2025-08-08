@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Drive AI Organizer - 구글 드라이브 자동 정리 시스템</title>
+    <meta name="description" content="AI 기반 구글 드라이브 자동 정리 및 최적화 시스템">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fab fa-google-drive"></i>
+                <span>Drive AI Organizer</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">홈</a></li>
+                <li><a href="#features" class="nav-link">기능</a></li>
+                <li><a href="#demo" class="nav-link">데모</a></li>
+                <li><a href="#structure" class="nav-link">구조</a></li>
+                <li><a href="#docs" class="nav-link">문서</a></li>
+                <li><a href="https://github.com/garimto81/google-drive" class="nav-link github-link">
+                    <i class="fab fa-github"></i> GitHub
+                </a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 data-aos="fade-up">
+                    <span class="gradient-text">AI가 정리하는</span><br>
+                    스마트한 구글 드라이브
+                </h1>
+                <p data-aos="fade-up" data-aos-delay="100">
+                    머신러닝과 자연어 처리 기술로 파일을 자동 분류하고<br>
+                    체계적인 폴더 구조를 생성하는 지능형 정리 시스템
+                </p>
+                <div class="hero-buttons" data-aos="fade-up" data-aos-delay="200">
+                    <button class="btn btn-primary" onclick="startDemo()">
+                        <i class="fas fa-play"></i> 시작하기
+                    </button>
+                    <a href="#features" class="btn btn-outline">
+                        <i class="fas fa-info-circle"></i> 자세히 보기
+                    </a>
+                </div>
+                <div class="hero-stats" data-aos="fade-up" data-aos-delay="300">
+                    <div class="stat">
+                        <h3>95%</h3>
+                        <p>분류 정확도</p>
+                    </div>
+                    <div class="stat">
+                        <h3>3-5분</h3>
+                        <p>100개 파일 처리</p>
+                    </div>
+                    <div class="stat">
+                        <h3>75개</h3>
+                        <p>자동 생성 폴더</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image" data-aos="zoom-in" data-aos-delay="400">
+                <div class="floating-card">
+                    <div class="card-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="card-content">
+                        <div class="file-animation">
+                            <div class="file" data-type="doc"><i class="fas fa-file-alt"></i></div>
+                            <div class="file" data-type="img"><i class="fas fa-image"></i></div>
+                            <div class="file" data-type="video"><i class="fas fa-video"></i></div>
+                            <div class="file" data-type="code"><i class="fas fa-code"></i></div>
+                        </div>
+                        <div class="organizing-text">Organizing...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 data-aos="fade-up">주요 기능</h2>
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI 자동 분류</h3>
+                    <p>Gemini AI가 파일 내용과 메타데이터를 분석하여 최적의 폴더로 자동 분류</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-folder-tree"></i>
+                    </div>
+                    <h3>스마트 폴더 구조</h3>
+                    <p>프로젝트별 체계적인 폴더 구조를 자동으로 생성하고 관리</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>시간 기반 정리</h3>
+                    <p>오래된 파일을 자동으로 식별하고 아카이빙 또는 삭제 제안</p>
+                </div>
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>안전한 처리</h3>
+                    <p>OAuth 2.0 인증과 중요 파일 보호 메커니즘으로 안전한 파일 관리</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo">
+        <div class="container">
+            <h2 data-aos="fade-up">실시간 데모</h2>
+            <div class="demo-container" data-aos="fade-up" data-aos-delay="100">
+                <div class="demo-sidebar">
+                    <h3>제어판</h3>
+                    <button class="demo-btn" onclick="connectDrive()">
+                        <i class="fab fa-google"></i> Google 계정 연결
+                    </button>
+                    <button class="demo-btn" onclick="analyzeDrive()" disabled id="analyzeBtn">
+                        <i class="fas fa-chart-pie"></i> 드라이브 분석
+                    </button>
+                    <button class="demo-btn" onclick="organizeDrive()" disabled id="organizeBtn">
+                        <i class="fas fa-magic"></i> 자동 정리 시작
+                    </button>
+                    
+                    <div class="settings">
+                        <h4>설정</h4>
+                        <label>
+                            <input type="checkbox" checked> 자동 모드
+                        </label>
+                        <label>
+                            <input type="checkbox" checked> 중요 파일 보호
+                        </label>
+                        <label>
+                            신뢰도 임계값
+                            <input type="range" min="50" max="100" value="80">
+                            <span>80%</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="demo-main">
+                    <div class="demo-header">
+                        <h3>Google Drive</h3>
+                        <div class="demo-status">
+                            <span id="statusText">연결 대기중...</span>
+                            <span class="status-indicator" id="statusIndicator"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-content" id="demoContent">
+                        <div class="welcome-screen">
+                            <i class="fab fa-google-drive"></i>
+                            <h4>Google Drive AI Organizer</h4>
+                            <p>Google 계정을 연결하여 시작하세요</p>
+                        </div>
+                    </div>
+                    
+                    <div class="demo-footer">
+                        <div class="progress-bar" id="progressBar" style="display: none;">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="stats-row" id="statsRow" style="display: none;">
+                            <span>처리된 파일: <strong id="processedFiles">0</strong></span>
+                            <span>정리된 파일: <strong id="organizedFiles">0</strong></span>
+                            <span>절약된 공간: <strong id="savedSpace">0 MB</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Folder Structure Section -->
+    <section id="structure" class="structure">
+        <div class="container">
+            <h2 data-aos="fade-up">최적화된 폴더 구조</h2>
+            <div class="structure-viewer" data-aos="fade-up" data-aos-delay="100">
+                <div class="tree-view">
+                    <ul class="tree">
+                        <li>
+                            <span class="folder"><i class="fas fa-folder"></i> 01_프로젝트</span>
+                            <ul>
+                                <li><span class="folder"><i class="fas fa-folder"></i> WSOP</span></li>
+                                <li><span class="folder"><i class="fas fa-folder"></i> GGPoker_Production</span></li>
+                                <li><span class="folder"><i class="fas fa-folder"></i> YouTube_Content</span></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="folder"><i class="fas fa-folder"></i> 02_운영관리</span>
+                            <ul>
+                                <li><span class="folder"><i class="fas fa-folder"></i> 인력관리</span></li>
+                                <li><span class="folder"><i class="fas fa-folder"></i> 장비관리</span></li>
+                                <li><span class="folder"><i class="fas fa-folder"></i> 보고서</span></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span class="folder"><i class="fas fa-folder"></i> 03_개발_및_데이터</span>
+                            <ul>
+                                <li><span class="folder"><i class="fas fa-folder"></i> Colab_Notebooks</span></li>
+                                <li><span class="folder"><i class="fas fa-folder"></i> 데이터분석</span></li>
+                            </ul>
+                        </li>
+                        <li><span class="folder"><i class="fas fa-folder"></i> 04_미디어_자료</span></li>
+                        <li><span class="folder"><i class="fas fa-folder"></i> 05_외부협업</span></li>
+                        <li><span class="folder"><i class="fas fa-folder"></i> 99_임시</span></li>
+                    </ul>
+                </div>
+                <div class="structure-info">
+                    <h3>폴더 구조 특징</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> 프로젝트 기반 분류</li>
+                        <li><i class="fas fa-check"></i> 6단계 계층 구조</li>
+                        <li><i class="fas fa-check"></i> 75개 자동 생성 폴더</li>
+                        <li><i class="fas fa-check"></i> 확장 가능한 설계</li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="downloadStructure()">
+                        <i class="fas fa-download"></i> 구조 템플릿 다운로드
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Section -->
+    <section id="docs" class="docs">
+        <div class="container">
+            <h2 data-aos="fade-up">문서 및 리소스</h2>
+            <div class="docs-grid">
+                <a href="https://github.com/garimto81/google-drive/blob/main/README.md" class="doc-card" data-aos="fade-up" data-aos-delay="100">
+                    <i class="fas fa-book"></i>
+                    <h3>README</h3>
+                    <p>프로젝트 개요 및 시작 가이드</p>
+                </a>
+                <a href="https://github.com/garimto81/google-drive/blob/main/ARCHITECTURE.md" class="doc-card" data-aos="fade-up" data-aos-delay="200">
+                    <i class="fas fa-sitemap"></i>
+                    <h3>아키텍처</h3>
+                    <p>시스템 설계 및 기술 스택</p>
+                </a>
+                <a href="https://github.com/garimto81/google-drive/blob/main/CONTRIBUTING.md" class="doc-card" data-aos="fade-up" data-aos-delay="300">
+                    <i class="fas fa-hands-helping"></i>
+                    <h3>기여 가이드</h3>
+                    <p>프로젝트 참여 방법</p>
+                </a>
+                <a href="api.html" class="doc-card" data-aos="fade-up" data-aos-delay="400">
+                    <i class="fas fa-code"></i>
+                    <h3>API 문서</h3>
+                    <p>REST API 레퍼런스</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Google Drive AI Organizer</h3>
+                    <p>AI 기반 구글 드라이브 자동 정리 시스템</p>
+                    <div class="social-links">
+                        <a href="https://github.com/garimto81/google-drive"><i class="fab fa-github"></i></a>
+                        <a href="mailto:aiden.kim@ggproduction.net"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>빠른 링크</h4>
+                    <ul>
+                        <li><a href="#features">기능</a></li>
+                        <li><a href="#demo">데모</a></li>
+                        <li><a href="#docs">문서</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>리소스</h4>
+                    <ul>
+                        <li><a href="https://github.com/garimto81/google-drive">GitHub</a></li>
+                        <li><a href="https://github.com/garimto81/google-drive/issues">이슈 트래커</a></li>
+                        <li><a href="https://github.com/garimto81/google-drive/releases">릴리즈</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 GGProduction Team. MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
